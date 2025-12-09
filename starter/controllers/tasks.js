@@ -17,9 +17,7 @@ const getTask = asyncWrapper(async (req, res, next) => {
     const task = await Task.findById({ _id: taskID });
 
     if (!task) {
-        const error = new Error('Not Found');
-        error.status = 404;
-        return next(error);
+        return next(createCustomError(`No Task With The Id : ${taskID}`, 404))
     }
     res.status(200).json({ task }); 
 });
